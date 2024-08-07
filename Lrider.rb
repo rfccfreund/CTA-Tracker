@@ -41,6 +41,10 @@ OptionParser.new do |opts|
 
   opts.on("-s", "--station STATION_ID", "Specify the station ID") do |station_id|
     options[:station_id] = station_id
+    output = fetch_station_info(station_id)
+    output.dig('ctatt', 'eta').each do |station|
+      pp "#{station.dig('destNm')} bound train's projected arrival time is #{station.dig('arrT')}"
+    end
   end
 
   opts.on("-h", "--help", "Displays Help") do
